@@ -1,0 +1,116 @@
+/*Write a query to all record to the tabes*/		
+SELECT * FROM rrr.globalsuperstores;		
+		
+/*How many customers has superstores ever had?*/		
+select count(distinct Customer_id) as unique_customer		
+from rrr.globalsuperstores;		
+		
+/*Write a query to find the maximum sales	 average Profit	 minimum Quantity for superstores*/
+select max(sales) as max_sales		
+"	min(Quantity) as min_quantity"		
+    avg(Profit) as mean_profit		
+    from rrr.globalsuperstores		
+    		
+/*Write a query sales_per_profit(sales/profit)*/		
+select Sales/Profit as Sales_per_profit		
+    from rrr.globalsuperstores		
+		
+/*Write a query to count the category for each segment group.*/		
+SELECT 		
+ Segment		
+ COUNT(Category) AS num_category		
+FROM 		
+ rrr.globalsuperstores		
+GROUP BY		
+ Segment		
+		
+/*Write a query to calculate the average Profit	No. of Sales on Superstores for each Customer_name	 category*/
+SELECT 		
+Customer_Name		
+Category		
+SUM(Sales) as Num_Sales		
+AVG(Profit) AS avg_Profit		
+FROM 		
+ rrr.globalsuperstores		
+GROUP BY		
+ Customer_Name		
+ Category		
+		
+/*Write a query to find Top 10 Country to the total Sales conversion Per Country. Arrange the total 		
+conversion in descending order.*/		
+SELECT 		
+ Country		
+ SUM(Sales) AS total_Sales_conversion		
+ AVG(Profit) As Mean_Profit		
+FROM 		
+ rrr.globalsuperstores		
+GROUP BY		
+ Country		
+ORDER BY		
+ total_Sales_conversion DESC		
+ Limit 10		
+		
+/*Write a query to find the top 2 Customername	 Category	 Country with the maximum 
+total_unapproved_conversion */		
+SELECT 		
+ Customer_ID		
+ Customer_Name		
+ Category		
+ Country		
+ SUM(Sales - Profit) AS total_unapproved_conversion		
+FROM 		
+ rrr.globalsuperstores		
+GROUP BY		
+ Customer_ID		
+ Customer_Name		
+ Category		
+ Country		
+ORDER BY		
+ total_unapproved_conversion DESC		
+LIMIT 2		
+		
+/*How many num_Market have Postal_code 10024 available in the dataset*/		
+SELECT 		
+Market		
+ COUNT(Market) as num_Market		
+FROM 		
+ rrr.globalsuperstores		
+WHERE 		
+ Postal_Code in (10024)		
+ Group by Market		
+		
+/*Find the 5 most popular sperstores category across the city. Return category and number of profit*/		
+SELECT 		
+ category		
+ count(profit) as num_profit		
+FROM 		
+ rrr.globalsuperstores		
+WHERE		
+ city IN ('New South Wales'	 'New York City')	
+GROUP BY		
+ category		
+ORDER BY		
+ num_profit DESC		
+LIMIT 5		
+		
+/*Write a query  find a separate category	 region	 total porfit in the tables*/
+select 		
+  Region		
+  Category		
+  count(profit) as total_Profit		
+  from		
+  rrr.globalsuperstores		
+  group by		
+  Region		
+  Category		
+  order by		
+  total_profit desc		
+		
+/*Wirte a query find who have max sales in region and category at the dataset*/		
+select region	 Category	
+max(sales) as total_sales		
+from		
+rrr.globalsuperstores		
+group by region		
+Category		
+order by total_sales desc
